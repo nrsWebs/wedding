@@ -1,0 +1,101 @@
+---
+import heart from '../assets/heart.svg';
+---
+
+<div id="container">
+	<main>
+		<section class="date">
+			<p>Noviembre</p>
+			<div class="calendar">
+				<span>30</span>
+				<span>31</span>
+				<div class="day">
+					<img class="heart" id="heart" src={heart.src} alt="heart" fetchpriority="high" />
+					<span>01</span>
+				</div>
+				<span>02</span>
+				<span>03</span>
+			</div>
+			<h1>Save the Date!</h1>
+		</section>
+		<section class="names">
+			<div>Alba y Cristian</div>
+		</section>
+	</main>
+
+</div>
+
+<style>
+	#container {
+		font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
+		height: 100%;
+	}
+
+	main {
+		height: 100%;
+		
+	}
+
+
+	h1 {
+		font-size: 22px;
+		margin-top: 0.25em;
+	}
+
+	.date{
+		text-align: center;
+		position: relative;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%,-50%);
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		align-content: center;
+		gap: 1em;
+		flex-wrap: wrap;
+	}
+
+	.calendar{
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		column-gap: 1em;
+	}
+
+	.calendar > * {
+		width: 40px;
+		aspect-ratio: 1;
+	}
+
+	.day {
+		position: relative;
+	}
+
+	.heart {
+		position: absolute;
+		width: 100%;
+		transform: translate(-50%,-50%);
+		left: 50%;
+		top: 50%;
+	}
+
+
+	.names{
+		position: fixed;
+		bottom: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		margin-bottom: 1.3em;
+	}
+
+	@media screen and (max-height: 368px) {
+		
+	}
+
+	@media screen and (max-width: 768px) {
+		
+	}
+</style>
