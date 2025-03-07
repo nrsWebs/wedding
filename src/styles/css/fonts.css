@@ -1,0 +1,24 @@
+/* Registra tu font family personalizada y le indicamos al navegador dónde encontrarla. */
+@font-face {
+    font-family: 'AnticDidone';
+    src: url('fonts/AnticDidone-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'BetterSaturday';
+    src: url('fonts/Better_Saturday.woff2') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NotoSerifDisplay-Regular';
+    src: url('fonts/NotoSerifDisplay-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}

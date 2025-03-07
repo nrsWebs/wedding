@@ -9,6 +9,20 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.4.2"
-  }
+    "astro": "^5.4.2",
+    "less": "^4.2.2"
+  },
+  "description": "```sh npm create astro@latest -- --template basics ```",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nrsWebs/wedding.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nrsWebs/wedding/issues"
+  },
+  "homepage": "https://github.com/nrsWebs/wedding#readme"
 }

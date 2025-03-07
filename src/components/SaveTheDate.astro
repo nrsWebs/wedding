@@ -1,101 +1,129 @@
 ---
-import heart from '../assets/heart.svg';
+import flecha from '../assets/flecha-hacia-arriba.png';
+import corazones from '../assets/corazones.png';
 ---
 
 <div id="container">
 	<main>
-		<section class="date">
-			<p>Noviembre</p>
-			<div class="calendar">
-				<span>30</span>
-				<span>31</span>
-				<div class="day">
-					<img class="heart" id="heart" src={heart.src} alt="heart" fetchpriority="high" />
-					<span>01</span>
-				</div>
-				<span>02</span>
-				<span>03</span>
-			</div>
-			<h1>Save the Date!</h1>
+		<section class="heart-container">
+			<article class="montaje">
+				<img src={flecha.src} alt="heart" class="flecha-izq"/>
+				<img src={corazones.src} alt="heart" class="heart"/>
+				<img src={flecha.src} alt="heart" class="flecha-dch"/>
+			</article>
 		</section>
-		<section class="names">
-			<div>Alba y Cristian</div>
+		<section class="save-date">
+			<article class="date-container">
+				<h1>Save <br /> the <br/> Date!</h1>
+				<div class="vertical-line"></div>
+				<p class="date">
+					01 <br /> 11 <br /> 25
+				</p>
+			</article>
+			<article class="names-container">
+				<p class="names">Alba & <br /> Cristian</p>
+			</article>
+		</section>
+		<section class="heart-container">
+			<article class="montaje">
+				<img src={flecha.src} alt="heart" class="flecha-izq"/>
+				<img src={corazones.src} alt="heart" class="heart"/>
+				<img src={flecha.src} alt="heart" class="flecha-dch"/>
+			</article>
 		</section>
 	</main>
-
 </div>
 
-<style>
+<style lang="less">
+
 	#container {
-		font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
 		height: 100%;
+		color:#fff
 	}
 
-	main {
-		height: 100%;
-		
-	}
-
-
-	h1 {
-		font-size: 22px;
-		margin-top: 0.25em;
-	}
-
-	.date{
-		text-align: center;
-		position: relative;
-		left: 50%;
-		top: 50%;
-		transform: translate(-50%,-50%);
+	.heart-container {
 		display: flex;
 		justify-content: center;
-		flex-direction: column;
-		align-content: center;
-		gap: 1em;
-		flex-wrap: wrap;
-	}
-
-	.calendar{
-		display: flex;
 		align-items: center;
-		justify-content: space-between;
-		flex-direction: row;
-		flex-wrap: nowrap;
-		column-gap: 1em;
+		height: 20vh;
+		.montaje {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+			opacity: 0.3;
+			max-width: 15%;
+			img{
+				max-width: 100%;
+				max-height: 100%;
+			}
+			.flecha-izq {
+				rotate: -90deg;
+			}
+
+			.flecha-dch {
+				rotate: 90deg;
+			}
+
+			.heart{
+				position: absolute
+			}
+		}
 	}
 
-	.calendar > * {
-		width: 40px;
-		aspect-ratio: 1;
+	
+
+
+
+	.save-date {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-around;
+		height: 60vh;
+		.date-container {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			align-items: center;
+			width: 100%;
+			> * {
+				flex: 1 1 0;
+				text-align: center;
+			}
+			h1 {
+				font-size: 36px;
+				color:#fff;
+				font-family: 'BetterSaturday', sans-serif;
+			}			
+			.date{
+				font-size: 46px;
+				font-family: 'NotoSerifDisplay-Regular', sans-serif;
+			}
+			.vertical-line {
+				border-left: 0.7px solid #fff;
+				height: 100%;
+				max-width: 0.7px;
+			}
+		}
+		.names-container {
+			.names {
+				font-size: 46px;
+				font-family: 'AnticDidone', sans-serif;
+			}
+		}
 	}
+	
 
-	.day {
-		position: relative;
-	}
-
-	.heart {
-		position: absolute;
-		width: 100%;
-		transform: translate(-50%,-50%);
-		left: 50%;
-		top: 50%;
-	}
-
-
-	.names{
-		position: fixed;
-		bottom: 0;
-		left: 50%;
-		transform: translateX(-50%);
-		margin-bottom: 1.3em;
-	}
-
-	@media screen and (max-height: 368px) {
+	@media screen and (min-height: 426px) {
 		
 	}
 
-	@media screen and (max-width: 768px) {
+	@media screen and (min-width: 769px) {
+		
+	}
+
+	@media screen and (min-width: 1440px) {
 		
 	}
 </style>
