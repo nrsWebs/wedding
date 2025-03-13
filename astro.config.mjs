@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'http://matchpatolavida.com/',
-  base: 'wedding',
+  // base: 'wedding',
   vite: {
     plugins: [tailwindcss()]
   }
