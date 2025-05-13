@@ -1,0 +1,101 @@
+---
+import Arrow from '@/assets/images/arrow.svg'
+import Hearts from '@/assets/images/hearts.svg'
+import HeartArrow from '@/assets/images/heart-arrow.svg'
+---
+
+<div id="container" >
+	<main>
+        <section id="header" class="w-[100%] h-[40px] flex justify-between fixed z-10 top-0 max-w-[1440px] pr-(--spacing-header) pl-(--spacing-header)" x-data="{ visible: false }">
+            <div class="heart-montaje flex justify-center align-center relative opacity-[0.7] w-auto h-[40px] text-transparent">
+                <Arrow class="rotate-[-90deg] relative" width={40} height={40}/>
+                <Hearts class="heart absolute h-[40px]" width={40} height={40}/>
+                <Arrow class="rotate-[90deg] relative" width={40} height={40}/>
+            </div>
+            <div class="b-confirma border-[0.7px] flex justify-center items-center py-2 px-4 rounded-full h-[30px] cursor-pointer mt-auto mb-auto"> Confirma </div>
+        </section>
+        <section id="hero" class="w-[100%] h-[85vh]  bg-white relative flex justify-center items-center gap-10 flex-col" >
+            <!-- <div class="bg-[url(/images/background.webp)] bg-no-repeat bg-cover opacity-[0.3] w-[100%] h-[100%] absolute"></div> -->
+            <!-- <div class="opacity-0 transition-opacity duration-2000 z-2 font-[var(--font-noto)] text-7xl flex items-center gap-4" x-data x-intersect="$el.classList.add('opacity-100')" >
+                01 <span class="text-xl">•</span> 11 <span class="text-xl">•</span> 2025
+            </div> -->
+            <h1 class="font-(--font-noto) text-9xl font-bold bg-clip-text text-transparent bg-[url('/images/background.webp')] bg-contain text-stroke opacity-0 transition-opacity duration-2000 z-2 font-(family-name:--font-noto)) " 
+                x-data x-intersect="$el.classList.add('animate-heartbeat')">
+                    01 - 11 - 2025 
+            </h1>
+            <div class="opacity-0 transition-opacity duration-2000 z-2 delay-300 font-(family-name:--font-bettersaturday) text-3xl" x-data x-intersect="$el.classList.add('opacity-100')" >
+                Alba y Cristian
+            </div>
+        </section>
+        <section id="schedule" class="w-[100%] h-[85vh]  bg-[var(--color-quaternary)] text-white flex justify-center items-center flex-col gap-y-50" >
+            <div class="neonText font-(family-name:--font-bettersaturday) text-7xl"> Preparate para un gran dia</div>
+            <div class="w-[80%] flex justify-evenly items-center">
+                <div class="flex justify-between items-center flex-col gap-y-8">
+                    <span class="font-(family-name:--font-noto)) text-2xl"> 18:00h </span>
+                    <span class="font-(family-name:--font-bettersaturday) text-4xl"> Ceremonia </span>
+                </div>
+                <HeartArrow width={60} height={60} />
+                <div class="flex justify-between items-center flex-col gap-y-8">
+                    <span class="font-(family-name:--font-noto)) text-2xl"> 19:00h </span>
+                    <span class="font-(family-name:--font-bettersaturday) text-4xl"> Cocktail </span>
+                </div>
+                <HeartArrow width={60} height={60} />
+                <div class="flex justify-between items-center flex-col gap-y-8">
+                    <span class="font-(family-name:--font-noto)) text-2xl"> 20:00h </span>
+                    <span class="font-(family-name:--font-bettersaturday) text-4xl"> Cena </span>
+                </div>
+            </div>
+        </section>
+        <section id="xaloc" class="w-[100%] h-[85vh]  bg-white ">
+        </section>
+        <section id="countdown" class="w-[100%] h-[85vh] bg-[var(--color-quaternary)] ">
+        </section>
+        
+    </main>
+</div>
+
+<script>
+    
+    function updateHeartMontajeColor() {
+        const bConfirma = document.querySelector(".b-confirma");
+        const heartMontaje = document.querySelector(".heart-montaje");
+        const hero = document.querySelector("#hero");
+        const schedule = document.querySelector("#schedule");
+        const xaloc = document.querySelector("#xaloc");
+        const countdown = document.querySelector("#countdown");
+
+        // if (!heartMontaje || !hero || !schedule || !bConfirma) return;
+
+        const heartRect = heartMontaje.getBoundingClientRect();
+        const heroRect = hero.getBoundingClientRect();
+        const scheduleRect = schedule.getBoundingClientRect();
+        const xalocRect = xaloc.getBoundingClientRect();
+        const countdownRect = countdown.getBoundingClientRect();
+
+        if (heartRect.top >= heroRect.top && heartRect.bottom <= heroRect.bottom) {
+            // Está dentro de #hero
+            heartMontaje.style.color = "transparent";
+            bConfirma.style.color = "#5a694c";
+            bConfirma.style.borderColor = "#5a694c";
+        } else if (heartRect.top >= scheduleRect.top && heartRect.bottom <= scheduleRect.bottom) {
+            // Está dentro de #hero2
+            heartMontaje.style.color = "white";
+            bConfirma.style.color = "white";
+            bConfirma.style.borderColor = "white";
+        } else if (heartRect.top >= xalocRect.top && heartRect.bottom <= xalocRect.bottom) {
+            // Está dentro de #hero2
+            heartMontaje.style.color = "#5a694c";
+            bConfirma.style.color = "#5a694c";
+            bConfirma.style.borderColor = "#5a694c";
+        } else if (heartRect.top >= countdownRect.top && heartRect.bottom <= countdownRect.bottom) {
+            // Está dentro de #hero2
+            heartMontaje.style.color = "white";
+            bConfirma.style.color = "white";
+            bConfirma.style.borderColor = "white";
+        } 
+    }
+
+    window.addEventListener("scroll", updateHeartMontajeColor);
+    window.addEventListener("resize", updateHeartMontajeColor);
+    updateHeartMontajeColor();
+  </script>

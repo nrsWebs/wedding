@@ -1,0 +1,132 @@
+---
+import Arrow from '@/assets/images/arrow.svg'
+import Hearts from '@/assets/images/hearts.svg'
+import HeartArrow from '@/assets/images/heart-arrow.svg'
+---
+
+<div id="container" class="bg-(--color-white)">
+	<main>
+        <section id="header" class="w-[100%] h-[40px] flex justify-between m-auto z-10 top-0 max-w-[1440px] pr-(--spacing-header) pl-(--spacing-header)">
+            <div class="heart-montaje flex justify-center align-center relative opacity-[0.7] w-auto h-[40px] text-transparent">
+                <Arrow class="rotate-[-90deg] relative" width={40} height={40}/>
+                <Hearts class="heart absolute h-[40px]" width={40} height={40}/>
+                <Arrow class="rotate-[90deg] relative" width={40} height={40}/>
+            </div>
+            <div class="b-confirma border-[0.7px] flex justify-center items-center py-2 px-4 rounded-full h-[30px] cursor-pointer mt-auto mb-auto"> Confirma </div>
+        </section>
+        <section id="hero" 
+            class="w-[85vw] h-[100vh] max-w-[1440px] bg-white relative flex justify-center items-center gap-10 m-auto relative" 
+            x-data="{ showLocation: false,  showSchedule: false}">
+            
+             <!-- LUGAR -->
+            <div class="card w-[33%] aspect-2/3 bg-(--color-brown) flex justify-center items-center"      
+                @click="showLocation = true"
+                :class="{ 'animate-show-card-base': showLocation }"
+                x-data="{ hoverLocation: false }"
+                @mouseover="hoverLocation = true"
+                @mouseleave="hoverLocation = false"
+            >
+                <p  
+                    class="font-(family-name:--font-bettersaturday) text-white text-4xl"
+                    :class="{ 'neon-text': hoverLocation }"
+                >
+                    Lugar
+                </p>
+            </div>
+            <div
+                :class="{ 'animate-show-card-popup left-0': showLocation }"
+                class="extended opacity-0 transition-all duration-[1s,15s]
+                    left-0 absolute w-[0vw] ] bg-(--color-brown) flex justify-center items-center">
+                <span
+                    class="absolute top-2 right-4 text-white cursor-pointer text-xl" 
+                    @click.stop="showLocation = false"
+                    x-data="{ hoverXLocation: false }"
+                    @mouseover="hoverXLocation = true"
+                    @mouseleave="hoverXLocation = false"
+                    :class="{ 'neon-text': hoverXLocation }"    
+                >
+                    X
+                </span>
+                <p>El lugar es un secreto</p>
+            </div>
+
+            <!-- HORARIO -->
+            <div class="card w-[33%] aspect-2/3 bg-(--color-red) flex justify-center items-center" 
+                @click="showSchedule = true"
+                :class="{ 'animate-show-card-base': showSchedule }"
+                x-data="{ hoverSchedule: false }"
+                @mouseover="hoverSchedule = true"
+                @mouseleave="hoverSchedule = false"
+            >
+                <p  
+                    class="font-(family-name:--font-bettersaturday) text-white text-4xl"
+                    :class="{ 'neon-text': hoverSchedule }"
+                >
+                    Horario
+                </p>
+            </div>
+            <div 
+                :class="{ 'animate-show-card-popup': showSchedule }"
+                class="extended opacity-0 transition-all duration-700
+                    absolute w-[0vw] bg-(--color-brown) flex justify-center items-center flex-col gap-y-50">
+                <span
+                    class="absolute top-2 right-4 text-white cursor-pointer text-xl" 
+                    @click.stop="showSchedule = false"
+                    x-data="{ hoverXSchedule: false }"
+                    @mouseover="hoverXSchedule = true"
+                    @mouseleave="hoverXSchedule = false"
+                    :class="{ 'neon-text': hoverXSchedule }"
+                >
+                    X
+                </span>
+                <div class="neon-text text-white font-(family-name:--font-bettersaturday) text-7xl"> Preparate para un gran dia</div>
+                <div class="w-[80%] flex justify-evenly items-center">
+                    <div class="flex justify-between items-center flex-col gap-y-8">
+                        <span class="font-(family-name:--font-noto)) text-2xl"> 18:00h </span>
+                        <span class="font-(family-name:--font-bettersaturday) text-4xl"> Ceremonia </span>
+                    </div>
+                    <HeartArrow width={60} height={60} />
+                    <div class="flex justify-between items-center flex-col gap-y-8">
+                        <span class="font-(family-name:--font-noto)) text-2xl"> 19:00h </span>
+                        <span class="font-(family-name:--font-bettersaturday) text-4xl"> Cocktail </span>
+                    </div>
+                    <HeartArrow width={60} height={60} />
+                    <div class="flex justify-between items-center flex-col gap-y-8">
+                        <span class="font-(family-name:--font-noto)) text-2xl"> 20:00h </span>
+                        <span class="font-(family-name:--font-bettersaturday) text-4xl"> Cena </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COUNTDOWN -->
+            <div class="card w-[33%] aspect-2/3 bg-(--color-orange)"></div>
+
+            <!-- DATE -->
+            <h1 class="font-(--font-noto) text-9xl font-bold 
+                bg-clip-text text-transparent bg-[url('/images/background.webp')] bg-contain text-stroke 
+                opacity-0 transition-opacity duration-2000 z-2 
+                font-(family-name:--font-noto))
+                w-[90vw] h-auto m-auto
+                absolute text-center top-[40%] left-[50%] translate-x-[-50%] translate-y-[-40%]" 
+                x-data="{ heroMoveUp: false }" 
+                x-intersect="$el.classList.add('animate-heartbeat')"
+                x-init="setTimeout(() => heroMoveUp = true, 2000)"
+                :class="{ 'animate-hero-up': heroMoveUp }">
+            01 - 11 - 2025 
+            </h1>
+            <!-- NAMES -->
+            <div class="opacity-0 transition-opacity duration-2000 z-2 delay-300 
+                font-(family-name:--font-bettersaturday) 
+                text-3xl
+                w-[90vw] h-auto m-auto
+                absolute text-center top-[80%] left-[50%] translate-x-[-50%] translate-y-[-80%]" 
+                x-data="{ heroMoveDown: false }"  
+                x-intersect="$el.classList.add('opacity-100')"
+                x-init="setTimeout(() => heroMoveDown = true, 1500)"
+                :class="{ 'animate-hero-down': heroMoveDown }"
+                >
+                Alba y Cristian
+            </div>
+        </section>
+    </main>
+</div>
