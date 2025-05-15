@@ -10,11 +10,11 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
-  experimental: {
-    svg: {
-      mode: 'sprite',
-    },
-  },
+  // experimental: {
+  //   svg: {
+  //     mode: 'sprite',
+  //   },
+  // },
 
   integrations: [alpine({ entrypoint: '/src/entrypoint' })],  
 });

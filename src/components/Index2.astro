@@ -15,11 +15,11 @@ import HeartArrow from '@/assets/images/heart-arrow.svg'
             <div class="b-confirma border-[0.7px] flex justify-center items-center py-2 px-4 rounded-full h-[30px] cursor-pointer mt-auto mb-auto"> Confirma </div>
         </section>
         <section id="hero" 
-            class="w-[85vw] h-[100vh] max-w-[1440px] bg-white relative flex justify-center items-center gap-10 m-auto relative" 
+            class="w-[85vw] max-w-[1440px] bg-white relative flex justify-center items-center gap-10 m-auto relative" 
             x-data="{ showLocation: false,  showSchedule: false}">
             
              <!-- LUGAR -->
-            <div class="card w-[33%] aspect-2/3 bg-(--color-brown) flex justify-center items-center"      
+            <div class="card w-[33%] aspect-2/3 bg-(--color-brown) flex justify-center items-center"
                 @click="showLocation = true"
                 :class="{ 'animate-show-card-base': showLocation }"
                 x-data="{ hoverLocation: false }"
@@ -35,10 +35,10 @@ import HeartArrow from '@/assets/images/heart-arrow.svg'
             </div>
             <div
                 :class="{ 'animate-show-card-popup left-0': showLocation }"
-                class="extended opacity-0 transition-all duration-[1s,15s]
-                    left-0 absolute w-[0vw] ] bg-(--color-brown) flex justify-center items-center">
+                class="extended opacity-0 transition-all duration-700
+                    left-0 absolute w-[0vw] ] bg-(--color-brown) flex justify-center items-center flex-col gap-y-50">
                 <span
-                    class="absolute top-2 right-4 text-white cursor-pointer text-xl" 
+                    class="absolute top-2 right-4 text-white cursor-pointer text-xl z-10" 
                     @click.stop="showLocation = false"
                     x-data="{ hoverXLocation: false }"
                     @mouseover="hoverXLocation = true"
@@ -47,7 +47,12 @@ import HeartArrow from '@/assets/images/heart-arrow.svg'
                 >
                     X
                 </span>
-                <p>El lugar es un secreto</p>
+                <div :class="{ 'delayed-content': showSchedule }" class="w-[100%] h-[100%] flex justify-center items-center flex-col gap-y-10">
+                    <p class="text-white font-(family-name:--font-noto) text-7xl">Masia "El Xaloc"</p>
+                    <a href="https://maps.app.goo.gl/D723XZKGkBAtSMuVA" target="_blank" class="hover:underline">
+                        Ctra. Manresa - Vic, Km. 11, 08275 Calders, Barcelona
+                    </a>
+                </div>
             </div>
 
             <!-- HORARIO -->
@@ -70,7 +75,7 @@ import HeartArrow from '@/assets/images/heart-arrow.svg'
                 class="extended opacity-0 transition-all duration-700
                     absolute w-[0vw] bg-(--color-brown) flex justify-center items-center flex-col gap-y-50">
                 <span
-                    class="absolute top-2 right-4 text-white cursor-pointer text-xl" 
+                    class="absolute top-2 right-4 text-white cursor-pointer text-xl z-10" 
                     @click.stop="showSchedule = false"
                     x-data="{ hoverXSchedule: false }"
                     @mouseover="hoverXSchedule = true"
@@ -79,21 +84,23 @@ import HeartArrow from '@/assets/images/heart-arrow.svg'
                 >
                     X
                 </span>
-                <div class="neon-text text-white font-(family-name:--font-bettersaturday) text-7xl"> Preparate para un gran dia</div>
-                <div class="w-[80%] flex justify-evenly items-center">
-                    <div class="flex justify-between items-center flex-col gap-y-8">
-                        <span class="font-(family-name:--font-noto)) text-2xl"> 18:00h </span>
-                        <span class="font-(family-name:--font-bettersaturday) text-4xl"> Ceremonia </span>
-                    </div>
-                    <HeartArrow width={60} height={60} />
-                    <div class="flex justify-between items-center flex-col gap-y-8">
-                        <span class="font-(family-name:--font-noto)) text-2xl"> 19:00h </span>
-                        <span class="font-(family-name:--font-bettersaturday) text-4xl"> Cocktail </span>
-                    </div>
-                    <HeartArrow width={60} height={60} />
-                    <div class="flex justify-between items-center flex-col gap-y-8">
-                        <span class="font-(family-name:--font-noto)) text-2xl"> 20:00h </span>
-                        <span class="font-(family-name:--font-bettersaturday) text-4xl"> Cena </span>
+                <div :class="{ 'delayed-content': showSchedule }" class="w-[100%] h-[100%] flex justify-around items-center flex-col gap-y-10">
+                    <div class="text-white font-(family-name:--font-noto) text-7xl"> Preparate para un gran dia</div>
+                    <div class="w-[80%] flex justify-evenly items-center">
+                        <div class="flex justify-between items-center flex-col gap-y-8">
+                            <span class="font-(family-name:--font-noto)) text-2xl"> 18:00h </span>
+                            <span class="font-(family-name:--font-bettersaturday) text-4xl"> Ceremonia </span>
+                        </div>
+                        <HeartArrow width={60} height={60} />
+                        <div class="flex justify-between items-center flex-col gap-y-8">
+                            <span class="font-(family-name:--font-noto)) text-2xl"> 19:00h </span>
+                            <span class="font-(family-name:--font-bettersaturday) text-4xl"> Cocktail </span>
+                        </div>
+                        <HeartArrow width={60} height={60} />
+                        <div class="flex justify-between items-center flex-col gap-y-8">
+                            <span class="font-(family-name:--font-noto)) text-2xl"> 20:00h </span>
+                            <span class="font-(family-name:--font-bettersaturday) text-4xl"> Cena </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -104,7 +111,7 @@ import HeartArrow from '@/assets/images/heart-arrow.svg'
             <!-- DATE -->
             <h1 class="font-(--font-noto) text-9xl font-bold 
                 bg-clip-text text-transparent bg-[url('/images/background.webp')] bg-contain text-stroke 
-                opacity-0 transition-opacity duration-2000 z-2 
+                opacity-0 transition-opacity duration-2000 z-3 delay-200 
                 font-(family-name:--font-noto))
                 w-[90vw] h-auto m-auto
                 absolute text-center top-[40%] left-[50%] translate-x-[-50%] translate-y-[-40%]" 
