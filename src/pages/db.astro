@@ -1,0 +1,16 @@
+---
+import { db, Confirmation } from 'astro:db';
+
+const invitados = await db.select().from(Confirmation);
+---
+
+<h2>Confirmados</h2>
+
+{
+  invitados.map(({ name, plato }) => (
+    <article>
+      <p>Nombre: {name}</p>
+      <p>Plato: {plato}</p>
+    </article>
+  ))
+}

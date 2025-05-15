@@ -2,24 +2,52 @@
 import Arrow from '@/assets/images/arrow.svg'
 import Hearts from '@/assets/images/hearts.svg'
 import HeartArrow from '@/assets/images/heart-arrow.svg'
+
+import { db } from 'astro:db';
+import { Confirmation } from 'astro:db';
+
+
+if (Astro.request.method === 'POST') {
+    // Analizar datos de formulario
+    const formData = await Astro.request.formData();
+    const names = formData.getAll('name[]');
+
+    const platos: string[] = [];
+    for (let i = 0; i < names.length; i++) {
+        const plato = formData.get(`plato_${i}`);
+        platos.push(plato?.toString() ?? 'no especificado');
+    }
+
+    const records = names.map((name, i) => ({
+        name: name.toString(),
+        confirmation: true,
+        plato: platos[i],
+    }));
+
+    await db.insert(Confirmation).values(records);
+}
 ---
 
 <div id="container" class="bg-(--color-white)">
-	<main>
-        <section id="header" class="w-[100%] h-[40px] flex justify-between m-auto z-10 top-0 max-w-[1440px] pr-(--spacing-header) pl-(--spacing-header)">
+	<main x-data="{ showModal: false }">
+        <section id="header" class="w-[85vw] h-[40px] flex justify-between m-auto z-10 top-0 max-w-[1440px]">
             <div class="heart-montaje flex justify-center align-center relative opacity-[0.7] w-auto h-[40px] text-transparent">
                 <Arrow class="rotate-[-90deg] relative" width={40} height={40}/>
                 <Hearts class="heart absolute h-[40px]" width={40} height={40}/>
                 <Arrow class="rotate-[90deg] relative" width={40} height={40}/>
             </div>
-            <div class="b-confirma border-[0.7px] flex justify-center items-center py-2 px-4 rounded-full h-[30px] cursor-pointer mt-auto mb-auto"> Confirma </div>
+            <button 
+                @click="showModal = true" 
+                class="b-confirma border-[0.7px] flex justify-center items-center py-2 px-4 rounded-full h-[30px] cursor-pointer mt-auto mb-auto">
+                Confirma
+            </button>       
         </section>
         <section id="hero" 
             class="w-[85vw] max-w-[1440px] bg-white relative flex justify-center items-center gap-10 m-auto relative" 
             x-data="{ showLocation: false,  showSchedule: false}">
             
              <!-- LUGAR -->
-            <div class="card w-[33%] aspect-2/3 bg-(--color-brown) flex justify-center items-center"
+            <div class="card w-[33%] max-h-[100%] aspect-2/3 bg-(--color-brown) flex justify-center items-center"
                 @click="showLocation = true"
                 :class="{ 'animate-show-card-base': showLocation }"
                 x-data="{ hoverLocation: false }"
@@ -56,7 +84,7 @@ import HeartArrow from '@/assets/images/heart-arrow.svg'
             </div>
 
             <!-- HORARIO -->
-            <div class="card w-[33%] aspect-2/3 bg-(--color-red) flex justify-center items-center" 
+            <div class="card w-[33%] max-h-[100%] aspect-2/3 bg-(--color-red) flex justify-center items-center" 
                 @click="showSchedule = true"
                 :class="{ 'animate-show-card-base': showSchedule }"
                 x-data="{ hoverSchedule: false }"
@@ -106,10 +134,10 @@ import HeartArrow from '@/assets/images/heart-arrow.svg'
             </div>
 
             <!-- COUNTDOWN -->
-            <div class="card w-[33%] aspect-2/3 bg-(--color-orange)"></div>
+            <div class="card w-[33%] max-h-[100%] aspect-2/3 bg-(--color-orange)"></div>
 
             <!-- DATE -->
-            <h1 class="font-(--font-noto) text-9xl font-bold 
+            <h1 class="font-(family-name:--font-noto) text-9xl font-bold 
                 bg-clip-text text-transparent bg-[url('/images/background.webp')] bg-contain text-stroke 
                 opacity-0 transition-opacity duration-2000 z-3 delay-200 
                 font-(family-name:--font-noto))
@@ -135,5 +163,103 @@ import HeartArrow from '@/assets/images/heart-arrow.svg'
                 Alba y Cristian
             </div>
         </section>
+
+        <!-- Modal con Alpine.js -->
+        <div 
+            x-show="showModal" 
+            x-transition 
+            class="fixed inset-0 flex justify-center items-center z-50"
+            style="display: none;"
+        >
+            <div class="absolute inset-0 bg-(--color-green) opacity-90" >  </div>
+            <div 
+                class="bg-white opacity-100 p-6 rounded-xl w-[50vw] space-y-4 shadow-xl relative"
+                @click.outside="showModal = false"
+            >
+                <form id="confirmForm" class="space-y-4 font-noto" method="POST">
+                    <div id="personContainer" class="space-y-6">
+                        <!-- Persona individual -->
+                        <div class="person space-y-3">
+                        <!-- Nombre -->
+                        <div class="w-full min-w-[200px]">
+                            <div class="relative">
+                            <label
+                                class="cursor-text bg-white px-1 left-2.5 top-2.5 text-black text-sm transition-all transform origin-left peer-focus:-top-2 peer-focus:left-2.5 peer-focus:text-xs peer-focus:text-black peer-focus:scale-90"
+                            >
+                                Nombre
+                            </label>
+                            <input
+                                type="text"
+                                name="name[]"
+                                required
+                                class="peer w-full bg-transparent placeholder:text-black text-black text-sm border border-black rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-black hover:border-neutral-800 shadow-sm focus:shadow"
+                            />
+                            
+                            </div>
+                        </div>
+
+                        <!-- Plato -->
+                        <div class="space-y-2">
+                            <p class="text-sm font-medium text-black">
+                            Elige el plato principal:
+                            </p>
+                            <div class="flex gap-6">
+                            <label class="flex items-center gap-2 text-black">
+                                <input type="radio" name="plato_0" value="carne" required class="accent-blue-600" />
+                                Carne
+                            </label>
+                            <label class="flex items-center gap-2 text-black">
+                                <input type="radio" name="plato_0" value="pescado" class="accent-blue-600" />
+                                Pescado
+                            </label>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <!-- Botón para añadir más personas -->
+                    <button
+                    type="button"
+                    id="addPersonBtn"
+                    class="text-sm px-3 py-1 bg-(--color-green) text-white rounded"
+                    >
+                    Añadir persona
+                    </button>
+
+                    <!-- Botones -->
+                    <div class="flex justify-end gap-2 mt-4">
+                        <button
+                        type="submit"
+                        class="text-sm px-3 py-1 border border-black text-black rounded"
+                        >
+                        Confirmar
+                        </button>
+                    </div>
+                </form>
+                <!-- Script para el cliente -->
+                <script is:client>
+                    let personCount = 1;
+
+                    document.getElementById("addPersonBtn").addEventListener("click", () => {
+                    const container = document.getElementById("personContainer");
+                    const template = container.querySelector(".person");
+                    const clone = template.cloneNode(true);
+
+                    const inputs = clone.querySelectorAll("input");
+                    inputs.forEach((input) => {
+                        if (input.type === "text") input.value = "";
+                        if (input.type === "radio") {
+                        input.checked = false;
+                        input.name = `plato_${personCount}`;
+                        }
+                    });
+
+                    container.appendChild(clone);
+                    personCount++;
+                    });
+                </script>
+            </div>
+        </div>
+
     </main>
 </div>
