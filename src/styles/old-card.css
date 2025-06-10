@@ -1,0 +1,98 @@
+/* CARD */
+.card {
+    cursor: pointer;
+    filter: grayscale(50%);
+    /* box-shadow: 0px 7px 29px 0px var(--color-black); */
+    z-index: 2;
+    opacity: 0.9;
+    border-radius: 10px;
+
+    transition-property: transform, filter;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
+.card:hover {
+    transform: scaleX(1.05) scaleY(1.3);
+    filter: grayscale(0%);
+    border:0.7px solid var(--color-black);
+
+    transition-property: transform, filter;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-out;
+}
+
+
+
+@keyframes animate-show-card-base {
+    0% { 
+        opacity: 1;
+        transform: rotate3d(0, 0, 0, 0deg) scaleX(1.05) scaleY(1.3);
+    }
+    30% { 
+        opacity: 0.75;
+    }
+    50% { 
+        opacity: 0.5;
+    }
+    70% { 
+        opacity: 0.25;
+    }
+    100% {
+        opacity: 0;
+        transform: rotate3d(-1, 1, 0, 180deg) scaleX(0) scaleY(0);
+    }
+}
+
+.card.animate-show-card-base {
+    transform-style: preserve-3d;
+    transform-origin: center;
+    animation: animate-show-card-base 1s forwards ease-in-out;
+}
+
+@keyframes animate-show-card-popup {
+    0% { 
+        opacity: 0;
+        width: 70vw;
+        height: 50vh;
+    }
+    30% { 
+        opacity: 0;
+    }
+    50% { 
+        opacity: 0.25;
+    }
+    70% { 
+        opacity: 0.65;
+    }
+    100% {
+        opacity: 1;
+        width: 90vw;
+        height: 70vh;
+    }
+}
+
+.animate-show-card-popup {
+    border-radius: 10px;
+    /* box-shadow: 0px 7px 29px 0px var(--color-black); */
+    border:0.7px solid var(--color-black);
+    transform-style: preserve-3d;
+    transform-origin: center;
+    z-index: 3;
+    animation: animate-show-card-popup 1.5s forwards ease-in-out;
+}
+
+@keyframes fade-in-content {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.delayed-content {
+  opacity: 0;
+  animation: fade-in-content 0.5s ease-out forwards;
+  animation-delay: 1s; /* esto hace que espere 1s para empezar */
+}
