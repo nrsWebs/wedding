@@ -49,7 +49,7 @@ if (Astro.request.method === 'POST') {
 
             <!-- LUGAR -->
             <div 
-                class="card z-2 opacity-90 bg-[var(--color-brown)] flex justify-center items-center relative 
+                class="card z-2 opacity-70 bg-[var(--color-brown)] flex justify-center items-center relative 
                     max-h-[70vh] h-full rounded-lg w-full transition-all duration-300 cursor-pointer"
                 :class="activeId === 'lugar' ? 'flex-3' : 'flex-1'"
                 @click="activeId = 'lugar'"
@@ -74,7 +74,7 @@ if (Astro.request.method === 'POST') {
 
             <!-- HORARIO -->
             <div 
-                class="card z-2 opacity-90 bg-[var(--color-red)] flex justify-center items-center relative 
+                class="card z-2 opacity-70 bg-[var(--color-red)] flex justify-center items-center relative 
                     max-h-[70vh] h-full rounded-lg w-full md:w-[33%] transition-all duration-300 cursor-pointer"
                 :class="activeId === 'horario' ? 'flex-3' : 'flex-1'"
                 @click="activeId = 'horario'"
@@ -110,7 +110,7 @@ if (Astro.request.method === 'POST') {
 
             <!-- COUNTDOWN -->
             <div 
-                class="card z-2 opacity-90 bg-[var(--color-orange)] flex justify-center items-center relative 
+                class="card z-2 opacity-70 bg-[var(--color-orange)] flex justify-center items-center relative 
                     max-h-[70vh] h-full rounded-lg w-full md:w-[33%] transition-all duration-300 cursor-pointer"
                 :class="activeId === 'countdown' ? 'flex-3' : 'flex-1'"
                 @click="activeId = 'countdown'"
@@ -129,11 +129,11 @@ if (Astro.request.method === 'POST') {
 
 
             <!-- DATE -->
-            <h1 class="font-(family-name:--font-noto) font-bold
+            <h1 class="font-medium
                 text-5xl md:text-8xl xl:text-9xl
                 bg-clip-text text-transparent bg-[url('/images/background.webp')] bg-contain text-stroke 
                 opacity-0 transition-opacity duration-2000 z-3 delay-200 
-                font-(family-name:--font-noto))
+                font-(family-name:--font-noto)
                 w-[90vw] h-auto m-auto
                 absolute text-center top-[40%] left-[50%] translate-x-[-50%] translate-y-[-40%]" 
                 x-data="{ heroMoveUp: false }" 
