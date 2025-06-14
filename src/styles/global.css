@@ -19,6 +19,9 @@
     --spacing-header: min(30px, 5%);
 
     --transform-scale: scale(1.1);
+
+
+    --breakpoint-1024: 1024px;
 }
 
 @layer utilities {

@@ -30,8 +30,8 @@ if (Astro.request.method === 'POST') {
 
 <div id="container" class="bg-(--color-white)">
 	<main x-data="{ showModal: false }">
-        <section id="header" class="w-[85vw] h-[40px] flex justify-between m-auto z-10 top-0 max-w-[1440px]">
-            <div class="heart-montaje flex justify-center align-center relative opacity-[0.7] w-auto h-[40px] text-transparent">
+        <section id="header" class="w-[100vw] h-[40px] flex justify-between m-auto z-10 top-0 max-w-[1440px] pr-8 pl-8 box-border">
+            <div class="heart-montaje flex justify-center align-center relative opacity-[0.7] w-auto h-[40px] text-transparent mt-8">
                 <Arrow class="rotate-[-90deg] relative" width={40} height={40}/>
                 <Hearts class="heart absolute h-[40px]" width={40} height={40}/>
                 <Arrow class="rotate-[90deg] relative" width={40} height={40}/>
@@ -43,99 +43,94 @@ if (Astro.request.method === 'POST') {
             </button>       
         </section>
         <section id="hero" 
-            class="w-[100vw] max-w-[1440px] bg-white relative flex justify-center items-center gap-10 m-auto relative p-[20px]"
+        class="max-w-[1440px] bg-white relative h-screen flex flex-col justify-center items-center gap-4 md:gap-10 m-auto pr-8 pl-8 box-border md:flex-nowrap md:flex-row"
+        x-data="{ activeId: null }"
+        >
+
+            <!-- LUGAR -->
+            <div 
+                class="card z-2 opacity-90 bg-[var(--color-brown)] flex justify-center items-center relative 
+                    max-h-[70vh] h-full rounded-lg w-full transition-all duration-300 cursor-pointer"
+                :class="activeId === 'lugar' ? 'flex-3' : 'flex-1'"
+                @click="activeId = 'lugar'"
+                @mouseenter="activeId = 'lugar'"
+                @mouseleave="activeId = null"
             >
-            <div class="carousel w-full h-full flex justify-center items-center gap-10">
-                <!-- LUGAR -->
-                <div 
-                    class="card z-2 opacity-90 bg-(--color-brown) flex justify-center items-center relative max-h-[70vh] aspect-[1/2] rounded-lg " 
-                    x-data="{ hovered: false }"
-                    @mouseenter="hovered = true"
-                    @mouseleave="hovered = false"
-                >
-                    <p  
-                        class="font-(family-name:--font-bettersaturday) text-white text-4xl"
-                        :class="{ 'neon-text': hovered }"
-                    >
-                        Lugar
-                    </p>
-                    <div
-                        class="opacity-0 transition-all duration-400 bg-white/30 backdrop-blur-md rounded-lg
+                <p class="font-(family-name:--font-bettersaturday) text-white text-3xl md:text-5xl xl:text-6xl"
+                :class="{ 'neon-text': activeId === 'lugar' }">
+                Lugar
+                </p>
+                <div class="opacity-0 transition-all duration-400 bg-white/30 backdrop-blur-md rounded-lg
                             flex justify-center items-center flex-col gap-y-50 absolute w-full h-full top-0 left-0"
-                        :class="{ 'opacity-100 ': hovered }">
-                        <div class="w-[100%] h-[100%] flex justify-center items-center flex-col gap-y-10">
-                            <p class="text-white font-(family-name:--font-noto) text-7xl">Masia "El Xaloc"</p>
-                            <a href="https://maps.app.goo.gl/D723XZKGkBAtSMuVA" target="_blank" class="hover:underline">
-                                Ctra. Manresa - Vic, Km. 11, 08275 Calders, Barcelona
-                            </a>
-                        </div>
-                    </div>
+                    :class="{ 'opacity-100': activeId === 'lugar' }">
+                <div class="w-full h-full flex justify-center items-center flex-col gap-y-10">
+                    <p class="text-white font-(family-name:--font-noto) text-4xl xl:text-5xl">Masia "El Xaloc"</p>
+                    <a href="https://maps.app.goo.gl/D723XZKGkBAtSMuVA" target="_blank" class="text-center text-1xl xl:text-3xl hover:underline">
+                    Ctra. Manresa - Vic, Km. 11, 08275 Calders, Barcelona
+                    </a>
                 </div>
-                <!-- HORARIO -->
-                <div 
-                    class="card z-2 opacity-90 bg-(--color-red) flex justify-center items-center relative max-h-[70vh] aspect-[1/2] rounded-lg " 
-                    x-data="{ hovered: false }"
-                    @mouseenter="hovered = true"
-                    @mouseleave="hovered = false"
-                >
-                    <p  
-                        class="font-(family-name:--font-bettersaturday) text-white text-4xl"
-                        :class="{ 'neon-text': hovered }"
-                    >
-                        Horario
-                    </p>
-                    <div
-                        class="opacity-0 transition-all duration-400 bg-white/30 backdrop-blur-md rounded-lg
-                            flex justify-center items-center flex-col gap-y-50 absolute w-full h-full top-0 left-0"
-                        :class="{ 'opacity-100 ': hovered }">
-                        <div class="w-[80%] flex flex-col justify-evenly items-center">
-                        <div class="flex justify-between items-center flex-col gap-y-8">
-                            <span class="font-(family-name:--font-noto)) text-2xl"> 18:00h </span>
-                            <span class="font-(family-name:--font-bettersaturday) text-4xl"> Ceremonia </span>
-                        </div>
-                        <HeartArrow width={60} height={60} />
-                        <div class="flex justify-between items-center flex-col gap-y-8">
-                            <span class="font-(family-name:--font-noto)) text-2xl"> 19:00h </span>
-                            <span class="font-(family-name:--font-bettersaturday) text-4xl"> Cocktail </span>
-                        </div>
-                        <HeartArrow width={60} height={60} />
-                        <div class="flex justify-between items-center flex-col gap-y-8">
-                            <span class="font-(family-name:--font-noto)) text-2xl"> 20:00h </span>
-                            <span class="font-(family-name:--font-bettersaturday) text-4xl"> Cena </span>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <!-- COUNTDOWN -->
-                <div 
-                    class="card z-2 opacity-90 bg-(--color-orange) flex justify-center items-center relative max-h-[70vh] aspect-[1/2] rounded-lg " 
-                    x-data="{ hovered: false }"
-                    @mouseenter="hovered = true"
-                    @mouseleave="hovered = false"
-                >
-                    <div  
-                        class="font-(family-name:--font-bettersaturday) text-white text-4xl text-center"
-                        :class="{ 'neon-text': hovered }"
-                    >
-                        <div class="flex justify-center gap-6 text-4xl font-mono p-4">
-                            <div>
-                                <div  class="font-(family-name:--font-noto)) text-2xl"><span id="days">--</span> días</div>
-                            </div>
-                            <div>
-                                <div class="font-(family-name:--font-noto)) text-2xl"><span id="hours">--</span> h</div>
-                            </div>
-                            <div>
-                                <div class="font-(family-name:--font-noto)) text-2xl"><span id="minutes">--</span> m</div>
-                            </div>
-                            <div>
-                                <div class="font-(family-name:--font-noto)) text-2xl"><span id="seconds">--</span> s</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
+
+            <!-- HORARIO -->
+            <div 
+                class="card z-2 opacity-90 bg-[var(--color-red)] flex justify-center items-center relative 
+                    max-h-[70vh] h-full rounded-lg w-full md:w-[33%] transition-all duration-300 cursor-pointer"
+                :class="activeId === 'horario' ? 'flex-3' : 'flex-1'"
+                @click="activeId = 'horario'"
+                @mouseenter="activeId = 'horario'"
+                @mouseleave="activeId = null"
+            >
+                <p class="font-(family-name:--font-bettersaturday) text-white text-3xl md:text-5xl xl:text-6xl"
+                :class="{ 'neon-text': activeId === 'horario' }">
+                Horario
+                </p>
+                <div class="opacity-0 transition-all duration-400 bg-white/30 backdrop-blur-md rounded-lg
+                            flex justify-center items-center flex-col gap-y-50 absolute w-full h-full top-0 left-0"
+                    :class="{ 'opacity-100': activeId === 'horario' }">
+                <div class="w-[80%] flex flex-col justify-evenly items-center">
+                    <!-- Horario Content -->
+                    <div class="flex justify-between items-center flex-col gap-y-2 xl:gap-y-8">
+                    <span class="font-(family-name:--font-noto) text-2xl md:text-3xl xl:text-4xl">18:00h</span>
+                    <span class="font-(family-name:--font-bettersaturday) text-3xl xl:text-5xl">Ceremonia</span>
+                    </div>
+                    <HeartArrow width="60" height="60" class="lg:m-6 xl:m-10"/>
+                    <div class="flex justify-between items-center flex-col gap-y-2 xl:gap-y-8">
+                    <span class="font-(family-name:--font-noto) text-2xl md:text-3xl xl:text-4xl">19:00h</span>
+                    <span class="font-(family-name:--font-bettersaturday) text-3xl xl:text-5xl">Cocktail</span>
+                    </div>
+                    <HeartArrow width="60" height="60" class="lg:m-6 xl:m-10"/>
+                    <div class="flex justify-between items-center flex-col gap-y-2 xl:gap-y-8">
+                    <span class="font-(family-name:--font-noto) text-2xl md:text-3xl xl:text-4xl">20:00h</span>
+                    <span class="font-(family-name:--font-bettersaturday) text-3xl xl:text-5xl">Cena</span>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- COUNTDOWN -->
+            <div 
+                class="card z-2 opacity-90 bg-[var(--color-orange)] flex justify-center items-center relative 
+                    max-h-[70vh] h-full rounded-lg w-full md:w-[33%] transition-all duration-300 cursor-pointer"
+                :class="activeId === 'countdown' ? 'flex-3' : 'flex-1'"
+                @click="activeId = 'countdown'"
+                @mouseenter="activeId = 'countdown'"
+                @mouseleave="activeId = null"
+            >
+                <div class="font-(family-name:--font-noto) text-white text-2xl 1024:text-4xl xl:text-5xl text-center"
+                    :class="{ 'neon-text': activeId === 'countdown' }">
+                <div class="flex flex-wrap justify-center gap-2 xl:gap-4">
+                    <div><span id="days">--</span> días</div>
+                    <div><span id="hours">--</span> h</div>
+                    <div><span id="minutes">--</span> m</div>
+                </div>
+                </div>
+            </div>
+
+
             <!-- DATE -->
-            <h1 class="font-(family-name:--font-noto) text-9xl font-bold 
+            <h1 class="font-(family-name:--font-noto) font-bold
+                text-5xl md:text-8xl xl:text-9xl
                 bg-clip-text text-transparent bg-[url('/images/background.webp')] bg-contain text-stroke 
                 opacity-0 transition-opacity duration-2000 z-3 delay-200 
                 font-(family-name:--font-noto))
@@ -150,7 +145,7 @@ if (Astro.request.method === 'POST') {
             <!-- NAMES -->
             <div class="opacity-0 transition-opacity duration-2000 z-2 delay-300 
                 font-(family-name:--font-bettersaturday) 
-                text-3xl
+                text-2xl md:text-3xl xl:text-4xl
                 w-[90vw] h-auto m-auto
                 absolute text-center top-[80%] left-[50%] translate-x-[-50%] translate-y-[-80%]" 
                 x-data="{ heroMoveDown: false }"  
@@ -160,10 +155,7 @@ if (Astro.request.method === 'POST') {
                 >
                 Alba y Cristian
             </div>
-
         </section>
-
-
 
         <!-- Modal con Alpine.js -->
         <div 
@@ -174,7 +166,7 @@ if (Astro.request.method === 'POST') {
         >
             <div class="absolute inset-0 bg-(--color-green) opacity-90" >  </div>
             <div 
-                class="bg-white opacity-100 p-6 rounded-xl w-[50vw] space-y-4 shadow-xl relative"
+                class="bg-white opacity-100 p-8 rounded-xl w-[50vw] space-y-4 shadow-xl relative"
                 @click.outside="showModal = false"
             >
                 <form id="confirmForm" class="space-y-4 font-noto" method="POST">
@@ -284,7 +276,7 @@ if (Astro.request.method === 'POST') {
                 document.getElementById('days').textContent = days;
                 document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
                 document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+                //document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
             }
             console.log("Countdown initialized with target date:", targetDate); // Debugging line
             updateCountdown();

@@ -1,11 +1,9 @@
 .card{
     transition: all 0.5s;
-    flex-basis: 33%; 
 }
 
 .card:hover {
 	box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
 	-webkit-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
 	-moz-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75); 
-    flex-basis: 100%;
 }
