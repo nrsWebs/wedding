@@ -59,24 +59,45 @@
 /* DATE + NAMES MOVE */
 @keyframes move-hero-up {
     0% { 
-        top: 40%;
-        transform: translateY(-40%);
+        bottom: 60%;
         z-index: 3;
     }
-    25% { 
-        top: 10%;
-        transform: translateY(-10%);
-        z-index: 1;
-    }
     100% {
-        top: 30%;
-        transform: translateY(-30%);
+        bottom: 100%;
         z-index: 1;
+        left: 0%;
+        transform: translate(50%, 1rem);
+        padding-left: calc(var(--spacing) * 8);
     }
 }
 
-.animate-hero-up {
-    animation: move-hero-up 2s forwards;
+@keyframes move-hero-up-sm {
+    0% { 
+        bottom: 60%;
+        z-index: 3;
+        font-size: 3rem; /* 5xl */
+    }
+    100% {
+        bottom: 100%;
+        z-index: 1;
+        left: 0%;
+        transform: translate(50%, 1rem);
+        padding-left: calc(var(--spacing) * 8); 
+        font-size: 1.875rem; /* 3xl */
+        line-height: 98px;
+        
+    }
+}
+
+@media (max-width: 767px) {  
+    .animate-hero-up {
+        animation: move-hero-up-sm 2s forwards;
+    }
+}
+@media (min-width: 768px) {  
+    .animate-hero-up {
+        animation: move-hero-up 2s forwards;
+    }
 }
 
 @keyframes move-hero-down {
@@ -94,6 +115,15 @@
 
 .animate-hero-down {
     animation: move-hero-down 2s forwards;
+}
+
+.bg-tinder{
+    background: #5a694c;
+    text-shadow:
+        0 0 5px #5a694c,
+        0 0 10px #5a694c,
+        0 0 20px #5a694c,
+        0 0 40px #5a694c;
 }
 
  /* NEON */

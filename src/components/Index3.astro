@@ -11,6 +11,7 @@ if (Astro.request.method === 'POST') {
     // Analizar datos de formulario
     const formData = await Astro.request.formData();
     const names = formData.getAll('name[]');
+    const menus = formData.getAll('menu[]'); // Nuevo: recogemos los menús
 
     const platos: string[] = [];
     for (let i = 0; i < names.length; i++) {
@@ -22,10 +23,12 @@ if (Astro.request.method === 'POST') {
         name: name.toString(),
         confirmation: true,
         plato: platos[i],
+        menu: menus[i]?.toString() ?? '', // Agrega el campo menu si tu modelo lo acepta
     }));
 
     await db.insert(Confirmation).values(records);
 }
+
 ---
 
 <div id="container" class="bg-(--color-white-bg)">
@@ -38,7 +41,10 @@ if (Astro.request.method === 'POST') {
             </div>
             <button 
                 @click="showModal = true" 
-                class="font-(family-name:--font-noto) b-confirma border-[var(--color-green)] border-[0.7px] flex justify-center items-center py-2 px-4 rounded-full h-[30px] cursor-pointer mt-auto mb-auto">
+                class="font-(family-name:--font-noto) 
+                b-confirma 
+                border-[var(--color-green)] border-[0.7px]
+                flex justify-center items-center py-2 px-4 rounded-full h-[30px] w-[100px] md:h-[40px] md:w-[140px cursor-pointer mt-[1rem]">
                 Confirma
             </button>       
         </section>
@@ -90,24 +96,14 @@ if (Astro.request.method === 'POST') {
                     :class="{ 'opacity-100': activeId === 'horario' }">
                     <div class="w-full h-full flex flex-col justify-evenly items-center sm:overflow-y-auto no-scrollbar">
                         <div class="flex justify-between items-center flex-col gap-y-2 xl:gap-y-4">
-                        <span class="font-(family-name:--font-noto) text-1xl sm:text-2xl">15:30h</span>
-                        <span class="font-(family-name:--font-bettersaturday) text-2xl sm:text-3xl">Bienvenida</span>
+                            <span class="font-(family-name:--font-noto) text-1xl sm:text-2xl">15:30h</span>
+                            <span class="font-(family-name:--font-bettersaturday) text-2xl sm:text-3xl">Bienvenida</span>
                         </div>
                         <HeartArrow width="60" height="60" class="lg:m-4 xl:m-6"/>
                         <!-- Horario Content -->
                         <div class="flex justify-between items-center flex-col gap-y-2 xl:gap-y-4">
-                        <span class="font-(family-name:--font-noto) text-1xl sm:text-2xl">16:00h</span>
-                        <span class="font-(family-name:--font-bettersaturday) text-2xl sm:text-3xl">Ceremonia</span>
-                        </div>
-                        <HeartArrow width="60" height="60" class="lg:m-4 xl:m-6"/>
-                        <div class="flex justify-between items-center flex-col gap-y-2 xl:gap-y-4">
-                        <span class="font-(family-name:--font-noto) text-1xl sm:text-2xl">17:00h</span>
-                        <span class="font-(family-name:--font-bettersaturday) text-2xl sm:text-3xl">Aperitivo</span>
-                        </div>
-                        <HeartArrow width="60" height="60" class="lg:m-4 xl:m-6"/>
-                        <div class="flex justify-between items-center flex-col gap-y-2 xl:gap-y-4">
-                        <span class="font-(family-name:--font-noto) text-1xl sm:text-2xl">19:00h</span>
-                        <span class="font-(family-name:--font-bettersaturday) text-2xl sm:text-3xl">Cena</span>
+                            <span class="font-(family-name:--font-noto) text-1xl sm:text-2xl">16:00h</span>
+                            <span class="font-(family-name:--font-bettersaturday) text-2xl sm:text-3xl">Ceremonia</span>
                         </div>
                     </div>
                 </div>
@@ -115,37 +111,43 @@ if (Astro.request.method === 'POST') {
 
             <!-- COUNTDOWN -->
             <div 
-                class="card z-2 opacity-85 bg-[var(--color-orange)] flex justify-center items-center relative 
+                class="card z-2 opacity-85 bg-[var(--color-orange)] flex flex-col justify-center items-center relative 
                     max-h-[70vh] h-full rounded-lg w-full md:w-[33%] transition-all duration-300 cursor-pointer p-2"
                 :class="activeId === 'countdown' ? 'flex-3' : 'flex-1'"
                 @click="activeId = 'countdown'"
                 @mouseenter="activeId = 'countdown'"
                 @mouseleave="activeId = null"
             >
+                <div class="text-white font-(family-name:--font-noto) text-2xl 1024:text-3xl xl:text-4xl text-center mt-4">
+                    <a target="_blank" href="https://open.spotify.com/playlist/00rv8y07DyGze2WR953MVL?si=TlwYOpLnTtmyHK4KciNE-w&pi=jI4qZEByRO6n7&pt=d8e0169c38a9f1c33b315480903e5037">
+                        Spotify
+                    </a>
+                </div>
                 <div class="font-(family-name:--font-noto) text-white text-2xl 1024:text-4xl xl:text-5xl text-center"
                     :class="{ 'neon-text': activeId === 'countdown' }">
-                <div class="flex flex-wrap justify-center gap-2 xl:gap-4">
-                    <div><span id="days">--</span> días</div>
-                    <div><span id="hours">--</span> h</div>
-                    <div><span id="minutes">--</span> m</div>
+                    <div class="flex flex-wrap justify-center gap-2 xl:gap-4">
+                        <div><span id="days">--</span> días</div>
+                        <div><span id="hours">--</span> h</div>
+                        <div><span id="minutes">--</span> m</div>
+                    </div>
                 </div>
-                </div>
+                
             </div>
 
 
             <!-- DATE -->
             <h1 class="font-medium
-                text-5xl md:text-8xl xl:text-9xl
+                text-[3rem] md:text-6xl xl:text-7xl md:h-[4.4rem] xl:h-[4.6rem]
                 bg-clip-text text-transparent bg-[url('/images/background.webp')] bg-contain text-stroke 
                 opacity-0 transition-opacity duration-2000 z-3 delay-200 
                 font-(family-name:--font-noto)
-                w-[90vw] h-auto m-auto
-                absolute text-center top-[40%] left-[50%] translate-x-[-50%] translate-y-[-40%]" 
+                h-auto m-auto w-max  box-content
+                absolute text-center bottom-[60%] left-[50%] translate-x-[-50%]" 
                 x-data="{ heroMoveUp: false }" 
                 x-intersect="$el.classList.add('animate-heartbeat')"
                 x-init="setTimeout(() => heroMoveUp = true, 2000)"
                 :class="{ 'animate-hero-up': heroMoveUp }">
-            01 - 11 - 2025 
+                01 - 11 - 2025 
             </h1>
             <!-- NAMES -->
             <div class="opacity-0 transition-opacity duration-2000 z-2 delay-300 
@@ -178,40 +180,58 @@ if (Astro.request.method === 'POST') {
                     <div id="personContainer" class="space-y-6">
                         <!-- Persona individual -->
                         <div class="person space-y-3">
-                        <!-- Nombre -->
-                        <div class="w-full">
-                            <div class="relative">
-                            <label
-                                class="cursor-text bg-white px-1 left-2.5 top-2.5 text-black text-sm transition-all transform origin-left peer-focus:-top-2 peer-focus:left-2.5 peer-focus:text-xs peer-focus:text-black peer-focus:scale-90"
-                            >
-                                Nombre
-                            </label>
-                            <input
-                                type="text"
-                                name="name[]"
-                                required
-                                class="peer w-full bg-transparent placeholder:text-black text-black text-sm border border-black rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-black hover:border-neutral-800 shadow-sm focus:shadow"
-                            />
-                            
+                            <!-- Nombre -->
+                            <div class="w-full">
+                                <div class="relative">
+                                    <label
+                                        class="cursor-text bg-white px-1 left-2.5 top-2.5 text-black text-sm transition-all transform origin-left peer-focus:-top-2 peer-focus:left-2.5 peer-focus:text-xs peer-focus:text-black peer-focus:scale-90"
+                                    >
+                                        Nombre
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="name[]"
+                                        required
+                                        class="peer w-full bg-transparent placeholder:text-black text-black text-sm border border-black rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-black hover:border-neutral-800 shadow-sm focus:shadow"
+                                    />
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Plato -->
-                        <div class="space-y-2">
-                            <p class="text-sm font-medium text-black">
-                            Elige el plato principal:
-                            </p>
-                            <div class="flex gap-6">
-                            <label class="flex items-center gap-2 text-black">
-                                <input type="radio" name="plato_0" value="carne" required class="accent-blue-600" />
-                                Carne
-                            </label>
-                            <label class="flex items-center gap-2 text-black">
-                                <input type="radio" name="plato_0" value="pescado" class="accent-blue-600" />
-                                Pescado
-                            </label>
+                            <!-- Plato -->
+                            <div class="space-y-2">
+                                <p class="text-sm font-medium text-black">
+                                Elige el plato principal:
+                                </p>
+                                <div class="flex flex-col md:flex-row gap-6">
+                                    <label class="flex items-center gap-2 text-black">
+                                        <input type="radio" name="plato_0" value="carne" required class="accent-blue-600" />
+                                        Carne
+                                    </label>
+                                    <label class="flex items-center gap-2 text-black">
+                                        <input type="radio" name="plato_0" value="pescado" class="accent-blue-600" />
+                                        Pescado
+                                    </label>
+                                    <label class="flex items-center gap-2 text-black">
+                                        <input type="radio" name="plato_0" value="infantil" class="accent-blue-600" />
+                                        Menú infantil
+                                    </label>
+                                </div>
                             </div>
-                        </div>
+
+                            <!-- Menú -->
+                            <div class="w-full">
+                                <div class="relative">
+                                    <label
+                                        class="cursor-text bg-white px-1 left-2.5 top-2.5 text-black text-sm transition-all transform origin-left peer-focus:-top-2 peer-focus:left-2.5 peer-focus:text-xs peer-focus:text-black peer-focus:scale-90"
+                                    >
+                                        Algo a tener en cuenta en tu menú (vegetariano, alergias, etc.)
+                                    </label>
+                                    <textarea
+                                        name="menu[]"
+                                        class="peer w-full bg-transparent placeholder:text-black text-black text-sm border border-black rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-black hover:border-neutral-800 shadow-sm focus:shadow"
+                                    ></textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -247,10 +267,14 @@ if (Astro.request.method === 'POST') {
                     inputs.forEach((input) => {
                         if (input.type === "text") input.value = "";
                         if (input.type === "radio") {
-                        input.checked = false;
-                        input.name = `plato_${personCount}`;
+                            input.checked = false;
+                            input.name = `plato_${personCount}`;
                         }
                     });
+
+                    const textarea = clone.querySelector("textarea");
+                    textarea.value = "";
+
 
                     container.appendChild(clone);
                     personCount++;

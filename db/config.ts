@@ -4,7 +4,8 @@ const Confirmation = defineTable({
   columns: {
     name: column.text(),
     confirmation: column.boolean(),
-    plato: column.text()
+    plato: column.text(),
+    menu: column.text()
   },
 });
 

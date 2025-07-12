@@ -7,10 +7,13 @@ const invitados = await db.select().from(Confirmation);
 <h2>Confirmados</h2>
 
 {
-  invitados.map(({ name, plato }) => (
-    <article>
+  invitados.map(({ name, plato, confirmation, menu }) => (
+    <div>
       <p>Nombre: {name}</p>
       <p>Plato: {plato}</p>
-    </article>
+      <p>Confirmado: {confirmation}</p>
+      <p> Menu:  {menu} </p>
+    </div>
+    <span>---------------------------------------</span>
   ))
 }
