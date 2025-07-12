@@ -28,9 +28,9 @@ if (Astro.request.method === 'POST') {
 }
 ---
 
-<div id="container" class="bg-(--color-white)">
+<div id="container" class="bg-(--color-white-bg)">
 	<main x-data="{ showModal: false }">
-        <section id="header" class="w-[100vw] h-[40px] flex justify-between m-auto z-10 top-0 max-w-[1440px] pr-8 pl-8 box-border">
+        <section id="header" class="w-[100vw] h-[60px] flex justify-between m-auto z-10 top-0 max-w-[1440px] pr-8 pl-8 box-border">
             <div class="heart-montaje flex justify-center align-center relative opacity-[0.7] w-auto h-[40px] text-transparent mt-8">
                 <Arrow class="rotate-[-90deg] relative" width={40} height={40}/>
                 <Hearts class="heart absolute h-[40px]" width={40} height={40}/>
@@ -38,19 +38,19 @@ if (Astro.request.method === 'POST') {
             </div>
             <button 
                 @click="showModal = true" 
-                class="b-confirma border-[0.7px] flex justify-center items-center py-2 px-4 rounded-full h-[30px] cursor-pointer mt-auto mb-auto">
+                class="font-(family-name:--font-noto) b-confirma border-[var(--color-green)] border-[0.7px] flex justify-center items-center py-2 px-4 rounded-full h-[30px] cursor-pointer mt-auto mb-auto">
                 Confirma
             </button>       
         </section>
         <section id="hero" 
-        class="max-w-[1440px] bg-white relative h-screen flex flex-col justify-center items-center gap-4 md:gap-10 m-auto pr-8 pl-8 box-border md:flex-nowrap md:flex-row"
+        class="max-w-[1440px] relative h-screen flex flex-col justify-center items-center gap-4 md:gap-10 m-auto pr-8 pl-8 box-border md:flex-nowrap md:flex-row"
         x-data="{ activeId: null }"
         >
 
             <!-- LUGAR -->
             <div 
-                class="card z-2 opacity-70 bg-[var(--color-brown)] flex justify-center items-center relative 
-                    max-h-[70vh] h-full rounded-lg w-full transition-all duration-300 cursor-pointer"
+                class="card z-2 opacity-85 bg-[var(--color-brown)] flex justify-center items-center relative 
+                    max-h-[70vh] h-full rounded-lg w-full transition-all duration-300 cursor-pointer p-2"
                 :class="activeId === 'lugar' ? 'flex-3' : 'flex-1'"
                 @click="activeId = 'lugar'"
                 @mouseenter="activeId = 'lugar'"
@@ -61,11 +61,11 @@ if (Astro.request.method === 'POST') {
                 Lugar
                 </p>
                 <div class="opacity-0 transition-all duration-400 bg-white/30 backdrop-blur-md rounded-lg
-                            flex justify-center items-center flex-col gap-y-50 absolute w-full h-full top-0 left-0"
+                            flex justify-center items-center flex-col gap-y-50 absolute w-full h-full top-0 left-0 p-6"
                     :class="{ 'opacity-100': activeId === 'lugar' }">
                 <div class="w-full h-full flex justify-center items-center flex-col gap-y-10">
-                    <p class="text-white font-(family-name:--font-noto) text-4xl xl:text-5xl">Masia "El Xaloc"</p>
-                    <a href="https://maps.app.goo.gl/D723XZKGkBAtSMuVA" target="_blank" class="text-center text-1xl xl:text-3xl hover:underline">
+                    <p class="text-white font-(family-name:--font-noto) text-center text-4xl xl:text-5xl">Masia "El Xaloc"</p>
+                    <a href="https://maps.app.goo.gl/D723XZKGkBAtSMuVA" target="_blank" class="font-(family-name:--font-noto) text-center text-1xl xl:text-3xl hover:underline">
                     Ctra. Manresa - Vic, Km. 11, 08275 Calders, Barcelona
                     </a>
                 </div>
@@ -74,8 +74,8 @@ if (Astro.request.method === 'POST') {
 
             <!-- HORARIO -->
             <div 
-                class="card z-2 opacity-70 bg-[var(--color-red)] flex justify-center items-center relative 
-                    max-h-[70vh] h-full rounded-lg w-full md:w-[33%] transition-all duration-300 cursor-pointer"
+                class="card z-2 opacity-85 bg-[var(--color-red)] flex justify-center items-center relative 
+                    max-h-[70vh] h-full rounded-lg w-full md:w-[33%] transition-all duration-300 cursor-pointer p-2"
                 :class="activeId === 'horario' ? 'flex-3' : 'flex-1'"
                 @click="activeId = 'horario'"
                 @mouseenter="activeId = 'horario'"
@@ -86,32 +86,37 @@ if (Astro.request.method === 'POST') {
                 Horario
                 </p>
                 <div class="opacity-0 transition-all duration-400 bg-white/30 backdrop-blur-md rounded-lg
-                            flex justify-center items-center flex-col gap-y-50 absolute w-full h-full top-0 left-0"
+                            flex justify-center items-center flex-col absolute w-full h-full top-0 left-0 p-6"
                     :class="{ 'opacity-100': activeId === 'horario' }">
-                <div class="w-[80%] flex flex-col justify-evenly items-center">
-                    <!-- Horario Content -->
-                    <div class="flex justify-between items-center flex-col gap-y-2 xl:gap-y-8">
-                    <span class="font-(family-name:--font-noto) text-2xl md:text-3xl xl:text-4xl">18:00h</span>
-                    <span class="font-(family-name:--font-bettersaturday) text-3xl xl:text-5xl">Ceremonia</span>
+                    <div class="w-full h-full flex flex-col justify-evenly items-center sm:overflow-y-auto no-scrollbar">
+                        <div class="flex justify-between items-center flex-col gap-y-2 xl:gap-y-4">
+                        <span class="font-(family-name:--font-noto) text-1xl sm:text-2xl">15:30h</span>
+                        <span class="font-(family-name:--font-bettersaturday) text-2xl sm:text-3xl">Bienvenida</span>
+                        </div>
+                        <HeartArrow width="60" height="60" class="lg:m-4 xl:m-6"/>
+                        <!-- Horario Content -->
+                        <div class="flex justify-between items-center flex-col gap-y-2 xl:gap-y-4">
+                        <span class="font-(family-name:--font-noto) text-1xl sm:text-2xl">16:00h</span>
+                        <span class="font-(family-name:--font-bettersaturday) text-2xl sm:text-3xl">Ceremonia</span>
+                        </div>
+                        <HeartArrow width="60" height="60" class="lg:m-4 xl:m-6"/>
+                        <div class="flex justify-between items-center flex-col gap-y-2 xl:gap-y-4">
+                        <span class="font-(family-name:--font-noto) text-1xl sm:text-2xl">17:00h</span>
+                        <span class="font-(family-name:--font-bettersaturday) text-2xl sm:text-3xl">Aperitivo</span>
+                        </div>
+                        <HeartArrow width="60" height="60" class="lg:m-4 xl:m-6"/>
+                        <div class="flex justify-between items-center flex-col gap-y-2 xl:gap-y-4">
+                        <span class="font-(family-name:--font-noto) text-1xl sm:text-2xl">19:00h</span>
+                        <span class="font-(family-name:--font-bettersaturday) text-2xl sm:text-3xl">Cena</span>
+                        </div>
                     </div>
-                    <HeartArrow width="60" height="60" class="lg:m-6 xl:m-10"/>
-                    <div class="flex justify-between items-center flex-col gap-y-2 xl:gap-y-8">
-                    <span class="font-(family-name:--font-noto) text-2xl md:text-3xl xl:text-4xl">19:00h</span>
-                    <span class="font-(family-name:--font-bettersaturday) text-3xl xl:text-5xl">Cocktail</span>
-                    </div>
-                    <HeartArrow width="60" height="60" class="lg:m-6 xl:m-10"/>
-                    <div class="flex justify-between items-center flex-col gap-y-2 xl:gap-y-8">
-                    <span class="font-(family-name:--font-noto) text-2xl md:text-3xl xl:text-4xl">20:00h</span>
-                    <span class="font-(family-name:--font-bettersaturday) text-3xl xl:text-5xl">Cena</span>
-                    </div>
-                </div>
                 </div>
             </div>
 
             <!-- COUNTDOWN -->
             <div 
-                class="card z-2 opacity-70 bg-[var(--color-orange)] flex justify-center items-center relative 
-                    max-h-[70vh] h-full rounded-lg w-full md:w-[33%] transition-all duration-300 cursor-pointer"
+                class="card z-2 opacity-85 bg-[var(--color-orange)] flex justify-center items-center relative 
+                    max-h-[70vh] h-full rounded-lg w-full md:w-[33%] transition-all duration-300 cursor-pointer p-2"
                 :class="activeId === 'countdown' ? 'flex-3' : 'flex-1'"
                 @click="activeId = 'countdown'"
                 @mouseenter="activeId = 'countdown'"
@@ -166,15 +171,15 @@ if (Astro.request.method === 'POST') {
         >
             <div class="absolute inset-0 bg-(--color-green) opacity-90" >  </div>
             <div 
-                class="bg-white opacity-100 p-8 rounded-xl w-[50vw] space-y-4 shadow-xl relative"
+                class="bg-white opacity-100 p-8 rounded-lg w-[80vw] sm:w-[50vw] max-h-[70vh] sm:max-h-[85vh] space-y-4 shadow-xl relative overflow-y-auto no-scrollbar"
                 @click.outside="showModal = false"
             >
-                <form id="confirmForm" class="space-y-4 font-noto" method="POST">
+                <form id="confirmForm" class="space-y-4 font-noto overflow-y-auto no-scrollbar" method="POST">
                     <div id="personContainer" class="space-y-6">
                         <!-- Persona individual -->
                         <div class="person space-y-3">
                         <!-- Nombre -->
-                        <div class="w-full min-w-[200px]">
+                        <div class="w-full">
                             <div class="relative">
                             <label
                                 class="cursor-text bg-white px-1 left-2.5 top-2.5 text-black text-sm transition-all transform origin-left peer-focus:-top-2 peer-focus:left-2.5 peer-focus:text-xs peer-focus:text-black peer-focus:scale-90"
@@ -255,7 +260,7 @@ if (Astro.request.method === 'POST') {
         </div>
         <script is:inline>
 
-            const targetDate = new Date("2025-11-01T18:00:00").getTime();
+            const targetDate = new Date("2025-11-01T15:30:00").getTime();
 
             function updateCountdown() {
                 console.log("Updating countdown..."); // Debugging line

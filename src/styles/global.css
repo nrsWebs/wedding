@@ -5,6 +5,7 @@
 
 
 @theme {
+    --color-white-bg: rgba(223, 222, 212, 0.3);
     --color-white: #f8fbf8;
     --color-black: #000000;
     --color-brown: #cea683;
@@ -28,6 +29,14 @@
 
     .text-stroke {
       -webkit-text-stroke: 0.7px rgba(0, 0, 0, 0.6);
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
 }
 
@@ -103,7 +112,7 @@
 
 
 #hero{
-    height: calc(100vh - 40px);
+    height: calc(100vh - 60px);
 }
 
 
