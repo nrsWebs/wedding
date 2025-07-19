@@ -5,18 +5,24 @@ import alpine from '@astrojs/alpinejs';
 
 import db from '@astrojs/db';
 
+import vercel from '@astrojs/vercel';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'http://matchpatolavida.com/',
+
   // base: 'wedding',
   vite: {
     plugins: [tailwindcss()]
   },
+
   // experimental: {
   //   svg: {
   //     mode: 'sprite',
   //   },
   // },
   output: 'server',
-  integrations: [alpine({ entrypoint: '/src/entrypoint' }), db()],  
+
+  integrations: [alpine({ entrypoint: '/src/entrypoint' }), db()],
+  adapter: vercel(),
 });
