@@ -3,32 +3,6 @@ import Arrow from '@/assets/images/arrow.svg'
 import Hearts from '@/assets/images/hearts.svg'
 import HeartArrow from '@/assets/images/heart-arrow.svg'
 
-import { db } from 'astro:db';
-import { Confirmation } from 'astro:db';
-
-
-if (Astro.request.method === 'POST') {
-    // Analizar datos de formulario
-    const formData = await Astro.request.formData();
-    const names = formData.getAll('name[]');
-    const menus = formData.getAll('menu[]'); // Nuevo: recogemos los menús
-
-    const platos: string[] = [];
-    for (let i = 0; i < names.length; i++) {
-        const plato = formData.get(`plato_${i}`);
-        platos.push(plato?.toString() ?? 'no especificado');
-    }
-
-    const records = names.map((name, i) => ({
-        name: name.toString(),
-        confirmation: true,
-        plato: platos[i],
-        menu: menus[i]?.toString() ?? '', // Agrega el campo menu si tu modelo lo acepta
-    }));
-
-    await db.insert(Confirmation).values(records);
-}
-
 ---
 
 <div id="container" class="bg-(--color-white-bg)">
@@ -39,14 +13,13 @@ if (Astro.request.method === 'POST') {
                 <Hearts class="heart absolute h-[40px]" width={40} height={40}/>
                 <Arrow class="rotate-[90deg] relative" width={40} height={40}/>
             </div>
-            <button 
-                @click="showModal = true" 
+            <a href="" 
                 class="font-(family-name:--font-noto) 
                 b-confirma 
                 border-[var(--color-green)] border-[0.7px]
                 flex justify-center items-center py-2 px-4 rounded-full h-[30px] w-[100px] md:h-[40px] md:w-[140px cursor-pointer mt-[1rem]">
                 Confirma
-            </button>       
+            </a>       
         </section>
         <section id="hero" 
         class="max-w-[1440px] relative h-screen flex flex-col justify-center items-center gap-4 md:gap-10 m-auto pr-8 pl-8 box-border md:flex-nowrap md:flex-row"
@@ -119,7 +92,7 @@ if (Astro.request.method === 'POST') {
                 @mouseleave="activeId = null"
             >
                 <div class="text-white font-(family-name:--font-noto) text-2xl 1024:text-3xl xl:text-4xl text-center mt-4">
-                    <a target="_blank" href="https://open.spotify.com/playlist/00rv8y07DyGze2WR953MVL?si=TlwYOpLnTtmyHK4KciNE-w&pi=jI4qZEByRO6n7&pt=d8e0169c38a9f1c33b315480903e5037">
+                    <a style="display: none" target="_blank" href="https://open.spotify.com/playlist/00rv8y07DyGze2WR953MVL?si=TlwYOpLnTtmyHK4KciNE-w&pi=jI4qZEByRO6n7&pt=d8e0169c38a9f1c33b315480903e5037">
                         Spotify
                     </a>
                 </div>
@@ -164,124 +137,6 @@ if (Astro.request.method === 'POST') {
             </div>
         </section>
 
-        <!-- Modal con Alpine.js -->
-        <div 
-            x-show="showModal" 
-            x-transition 
-            class="fixed inset-0 flex justify-center items-center z-50"
-            style="display: none;"
-        >
-            <div class="absolute inset-0 bg-(--color-green) opacity-90" >  </div>
-            <div 
-                class="bg-white opacity-100 p-8 rounded-lg w-[80vw] sm:w-[50vw] max-h-[70vh] sm:max-h-[85vh] space-y-4 shadow-xl relative overflow-y-auto no-scrollbar"
-                @click.outside="showModal = false"
-            >
-                <form id="confirmForm" class="space-y-4 font-noto overflow-y-auto no-scrollbar" method="POST">
-                    <div id="personContainer" class="space-y-6">
-                        <!-- Persona individual -->
-                        <div class="person space-y-3">
-                            <!-- Nombre -->
-                            <div class="w-full">
-                                <div class="relative">
-                                    <label
-                                        class="cursor-text bg-white px-1 left-2.5 top-2.5 text-black text-sm transition-all transform origin-left peer-focus:-top-2 peer-focus:left-2.5 peer-focus:text-xs peer-focus:text-black peer-focus:scale-90"
-                                    >
-                                        Nombre
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="name[]"
-                                        required
-                                        class="peer w-full bg-transparent placeholder:text-black text-black text-sm border border-black rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-black hover:border-neutral-800 shadow-sm focus:shadow"
-                                    />
-                                </div>
-                            </div>
-
-                            <!-- Plato -->
-                            <div class="space-y-2">
-                                <p class="text-sm font-medium text-black">
-                                Elige el plato principal:
-                                </p>
-                                <div class="flex flex-col md:flex-row gap-6">
-                                    <label class="flex items-center gap-2 text-black">
-                                        <input type="radio" name="plato_0" value="carne" required class="accent-blue-600" />
-                                        Carne
-                                    </label>
-                                    <label class="flex items-center gap-2 text-black">
-                                        <input type="radio" name="plato_0" value="pescado" class="accent-blue-600" />
-                                        Pescado
-                                    </label>
-                                    <label class="flex items-center gap-2 text-black">
-                                        <input type="radio" name="plato_0" value="infantil" class="accent-blue-600" />
-                                        Menú infantil
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- Menú -->
-                            <div class="w-full">
-                                <div class="relative">
-                                    <label
-                                        class="cursor-text bg-white px-1 left-2.5 top-2.5 text-black text-sm transition-all transform origin-left peer-focus:-top-2 peer-focus:left-2.5 peer-focus:text-xs peer-focus:text-black peer-focus:scale-90"
-                                    >
-                                        Algo a tener en cuenta en tu menú (vegetariano, alergias, etc.)
-                                    </label>
-                                    <textarea
-                                        name="menu[]"
-                                        class="peer w-full bg-transparent placeholder:text-black text-black text-sm border border-black rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-black hover:border-neutral-800 shadow-sm focus:shadow"
-                                    ></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Botón para añadir más personas -->
-                    <button
-                    type="button"
-                    id="addPersonBtn"
-                    class="text-sm px-3 py-1 bg-(--color-green) text-white rounded"
-                    >
-                    Añadir persona
-                    </button>
-
-                    <!-- Botones -->
-                    <div class="flex justify-end gap-2 mt-4">
-                        <button
-                        type="submit"
-                        class="text-sm px-3 py-1 border border-black text-black rounded"
-                        >
-                        Confirmar
-                        </button>
-                    </div>
-                </form>
-                <!-- Script para el cliente -->
-                <script is:client>
-                    let personCount = 1;
-
-                    document.getElementById("addPersonBtn").addEventListener("click", () => {
-                    const container = document.getElementById("personContainer");
-                    const template = container.querySelector(".person");
-                    const clone = template.cloneNode(true);
-
-                    const inputs = clone.querySelectorAll("input");
-                    inputs.forEach((input) => {
-                        if (input.type === "text") input.value = "";
-                        if (input.type === "radio") {
-                            input.checked = false;
-                            input.name = `plato_${personCount}`;
-                        }
-                    });
-
-                    const textarea = clone.querySelector("textarea");
-                    textarea.value = "";
-
-
-                    container.appendChild(clone);
-                    personCount++;
-                    });
-                </script>
-            </div>
-        </div>
         <script is:inline>
 
             const targetDate = new Date("2025-11-01T15:30:00").getTime();

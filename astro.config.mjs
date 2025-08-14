@@ -3,8 +3,6 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import alpine from '@astrojs/alpinejs';
 
-import db from '@astrojs/db';
-
 // https://astro.build/config
 export default defineConfig({
   site: 'http://matchpatolavida.com/',
@@ -17,6 +15,5 @@ export default defineConfig({
   //     mode: 'sprite',
   //   },
   // },
-  output: 'server',
-  integrations: [alpine({ entrypoint: '/src/entrypoint' }), db()],  
+  integrations: [alpine({ entrypoint: '/src/entrypoint' })],  
 });
